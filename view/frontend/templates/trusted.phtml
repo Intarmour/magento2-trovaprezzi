@@ -1,0 +1,10 @@
+<?php /** @var $block \Trovaprezzi\TrustedProgram\Block\Trusted */ ?>
+<?php $accountId = $block->getConfig(\Trovaprezzi\TrustedProgram\Block\Trusted::XML_PATH_ACCOUNT) ?>
+<!-- BEGIN Trovaprezzi Trusted Program CODE -->
+<?= $block->getTrackingJquery() ?>
+<script>
+//<![CDATA
+    <?= $block->getOrdersTrackingCode($accountId) ?>
+//]]>
+</script>
+<!-- END  Trovaprezzi Trusted Program CODE -->
