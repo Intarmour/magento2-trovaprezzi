@@ -2,6 +2,9 @@
 
 # TrovaPrezzi Conversion tracking / Adobe Commerce and Magento
 
+[![Latest Stable Version](https://poser.okvpn.org/intarmour/module-image-clean/v/stable)](https://packagist.org/packages/intarmour/module-image-clean)
+[![Total Downloads](https://poser.okvpn.org/intarmour/module-image-clean/downloads)](https://packagist.org/packages/intarmour/module-image-clean)
+
 This module will track your conversion in checkout, you just need to add your Merchant key in Admin. 
 
 
