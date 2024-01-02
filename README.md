@@ -1,9 +1,8 @@
-<a href="http://www.intarmour.com" title="Magento Extension"><img src="https://intarmour.com/wp-content/uploads/2023/03/logo-white-intarmour.png" width="100" align="right" alt="Magento2 plugins" /></a>
+<a href="http://www.intarmour.com" title="Magento Extension"><img src="https://intarmour.com/wp-content/uploads/2023/12/intarmour-logo-white.png" width="100" align="right" alt="Magento2 plugins" /></a>
 
 # TrovaPrezzi Conversion tracking / Adobe Commerce and Magento
-
-[![Latest Stable Version](https://poser.okvpn.org/intarmour/module-image-clean/v/stable)](https://packagist.org/packages/intarmour/module-image-clean)
-[![Total Downloads](https://poser.okvpn.org/intarmour/module-image-clean/downloads)](https://packagist.org/packages/intarmour/module-image-clean)
+[![Latest Stable Version](https://poser.okvpn.org/intarmour/module-trovaprezzi-trustedprogram/v/stable)](https://packagist.org/packages/intarmour/module-trovaprezzi-trustedprogram)
+[![Total Downloads](https://poser.okvpn.org/intarmour/module-trovaprezzi-trustedprogram/downloads)](https://packagist.org/packages/intarmour/module-trovaprezzi-trustedprogram)
 
 This module will track your conversion in checkout, you just need to add your Merchant key in Admin. 
 
