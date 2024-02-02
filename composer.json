@@ -3,27 +3,28 @@
     "description": "TrovaPrezzi tracking module for Magento 2",
     "type": "magento2-module",
     "require": {
-        "php": "~7.4|^8.0"
+        "php": "~7.4|^8.0",
+        "magento/framework": "*"
     },
-    "version": "1.0.2",
+    "version": "1.1.0",
     "license": [
         "OSL-3.0",
         "AFL-3.0"
     ],
     "authors": [
-      {
-        "name": "Intarmour",
-        "email": "support@intarmour.com",
-        "homepage": "https://www.intarmour.com",
-        "role": "Technical Support"
-      }
+        {
+            "name": "Intarmour",
+            "email": "support@intarmour.com",
+            "homepage": "https://www.intarmour.com",
+            "role": "Technical Support"
+        }
     ],
     "autoload": {
-      "files": [
-        "registration.php"
-      ],
-      "psr-4": {
-        "Trovaprezzi\\TrustedProgram\\": ""
-      }
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Trovaprezzi\\TrustedProgram\\": ""
+        }
     }
-  }
+}
