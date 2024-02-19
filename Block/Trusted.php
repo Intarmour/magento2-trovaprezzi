@@ -8,73 +8,52 @@ use Magento\Framework\View\Element\Template;
 use Magento\Framework\View\Element\Template\Context;
 use Magento\Sales\Model\ResourceModel\Order\CollectionFactory;
 use Magento\Store\Model\ScopeInterface;
+use Trovaprezzi\TrustedProgram\Utility\Configurations;
 
 class Trusted extends Template
 {
     /**
-     * Config paths for using throughout the code
-     */
-    const XML_PATH_ACTIVE = 'tptp/trusted/active';
-
-    const XML_PATH_ACCOUNT = 'tptp/trusted/account';
-
-    /**
-     * @var CollectionFactory
-     */
-    private CollectionFactory $_salesOrderCollection;
-
-    /**
      * @param Context $context
      * @param CollectionFactory $salesOrderCollection
+     * @param Configurations $configurations
      * @param array $data
      */
     public function __construct(
         Context $context,
-        CollectionFactory $salesOrderCollection,
+        private readonly CollectionFactory $salesOrderCollection,
+        private readonly Configurations $configurations,
         array $data = []
     ) {
-        $this->_salesOrderCollection = $salesOrderCollection;
         parent::__construct($context, $data);
-    }
-
-    /**
-     * Get config
-     *
-     * @param string $path
-     * @return mixed
-     */
-    public function getConfig(string $path): string
-    {
-        return $this->_scopeConfig->getValue($path, ScopeInterface::SCOPE_STORE) ?: '';
     }
 
     /**
      * Render information about specified orders and their items
      *
-     * @param string $accountId
      * @return string
      */
-    public function getOrdersTrackingCode(string $accountId): string
+    public function getOrdersTrackingCode(): string
     {
         $orderIds = $this->getOrderIds();
         if (empty($orderIds) || !is_array($orderIds)) {
             return '';
         }
 
-        $collection = $this->_salesOrderCollection->create();
+        $collection = $this->salesOrderCollection->create();
         $collection->addFieldToFilter('entity_id', ['in' => $orderIds]);
         $result = [];
 
         foreach ($collection as $order) {
-
+            $prodRows = [];
 			foreach ($order->getAllVisibleItems() as $item) {
-				$prodRows[]= "window._tpt.push({ event: \"addItem\", sku: '".$this->escapeJsQuote($item->getSku())."', product_name: '".$this->escapeJsQuote($item->getName())."' });";
+				$prodRows[] = "window._tpt.push({ event: \"addItem\", sku: '"
+                    . $this->escapeJsQuote($item->getSku())."', product_name: '"
+                    . $this->escapeJsQuote($item->getName())."' });";
 			}
 
 			$prod= implode("\n", $prodRows);
 
             $result[] = sprintf(
-
                 "function tpt_push() {
                     window._tpt.push({ event: \"setAccount\", id: '%s' });
 				    window._tpt.push({ event: \"setOrderId\", order_id: '%s' });
@@ -83,11 +62,11 @@ class Trusted extends Template
 				    window._tpt.push({ event: \"setAmount\", amount: '%s' });
                     window._tpt.push({ event: \"orderSubmit\"});
                 };",
-				$accountId,					//MKEY
-                $order->getIncrementId(),	//ID
-                $order->getCustomerEmail(),	//MAIL
-				$prod,						//SKU-NAME
-                $order->getBaseGrandTotal() - $order->getBaseShippingAmount() 	//AMOUNT
+				$this->configurations->getAccountId(), //MKEY
+                $order->getIncrementId(),   //ID
+                $order->getCustomerEmail(), //MAIL
+				$prod,  //SKU-NAME
+                $order->getBaseGrandTotal() - $order->getBaseShippingAmount()   //AMOUNT
             );
 
             $result[] = "if (window._tpt === undefined) {
@@ -114,27 +93,16 @@ class Trusted extends Template
 	}
 
     /**
-     * Render GA tracking scripts
+     * Render TrovaPrezzi tracking scripts
      *
      * @return string
      */
     protected function _toHtml(): string
     {
-        if (!$this->isTPAvailable()) {
+        if (!$this->configurations->isTPAvailable()) {
             return '';
         }
 
         return parent::_toHtml();
-    }
-
-    /**
-     * Check if Trusted is enabled and with key
-     *
-     * @return bool
-     */
-    private function isTPAvailable(): bool
-    {
-        $accountId = $this->getConfig(self::XML_PATH_ACCOUNT);
-        return $accountId && $this->_scopeConfig->isSetFlag(self::XML_PATH_ACTIVE);
     }
 }
