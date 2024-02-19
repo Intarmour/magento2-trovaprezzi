@@ -1,5 +1,5 @@
 {
-    "name": "intarmour/module-trovaprezzi-trustedprogram",
+    "name": "wapone/module-trovaprezzi-trustedprogram",
     "description": "TrovaPrezzi tracking module for Magento 2",
     "type": "magento2-module",
     "require": {
@@ -13,9 +13,9 @@
     ],
     "authors": [
         {
-            "name": "Intarmour",
-            "email": "support@intarmour.com",
-            "homepage": "https://www.intarmour.com",
+            "name": "WaPoNe",
+            "email": "michele@fantetti.net",
+            "homepage": "https://www.fantetti.net",
             "role": "Technical Support"
         }
     ],
